@@ -1,0 +1,39 @@
+version: "3.0"
+
+services:
+  db:
+    image: mariadb:10.4.10-bionic
+    restart: always
+    ports:
+      # You can connect to the site database from the terminal with:
+      #   mysql -u root -p -h 127.0.0.1 -P 4406
+      - "4406:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  php-myadmin:
+    image: phpmyadmin/phpmyadmin:4.8
+    restart: always
+    depends_on:
+      - db
+    ports:
+      # Visit php-myadmin UI at: http://localhost:8082
+      - "8082:80"
+
+  wp:
+    image: wordpress:5.2.4-php7.3-apache
+    ports:
+      # Visit WordPress installation at: http://localhost:8081
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html/wp-content/plugins/wcmi-2019

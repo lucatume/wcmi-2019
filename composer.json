@@ -1,0 +1,42 @@
+{
+    "name": "lucatume/wcmi-2019",
+    "description": "Time to read for posts.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Luca Tumedei",
+            "email": "luca@theaveragedev.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "wordpress/wordpress",
+                "version": "5.0",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/WordPress/WordPress/archive/master.zip"
+                }
+            }
+        }
+    ],
+    "require": {
+        "dokter/php-time-to-read": "^1.0"
+    },
+    "require-dev": {
+        "wordpress/wordpress": "5.0",
+        "lucatume/wp-browser": "^2.2",
+        "jakoch/phantomjs-installer": "2.1.1-p09",
+        "codeception/visualception": "^1.0"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    }
+}
